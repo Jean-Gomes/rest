@@ -18,7 +18,7 @@
 
 
 ## Use rest client
-In the file api.http you can find api rest calls. You should use the extension rest client for more praticity.
+In the api.http file, you can find REST API calls. You should use the REST Client extension for more convenience.
 
 ## Exemplo REST meia boca para E-commerce
 
