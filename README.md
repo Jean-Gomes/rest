@@ -1,8 +1,13 @@
 # REST study
 
+---
+
 ## Extensions used
 - https://marketplace.visualstudio.com/items?itemName=humao.rest-client
 - https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers
+
+
+---
 
 ## Run application
 
@@ -16,40 +21,21 @@
 3. inside the container
 `npm run dev`
 
+---
 
 ## Use rest client
 In the api.http file, you can find REST API calls. You should use the REST Client extension for more convenience.
 
-## Exemplo REST meia boca para E-commerce
+---
 
-| Operação                                      | Método HTTP | Path                                           |
-|-----------------------------------------------|-------------|------------------------------------------------|
-| JWT login                                     | POST        | /jwt/login                                     |
-| Session login                                 | POST        | /session/login                                 |
-| Session logout                                | POST        | /session/logout                                |
-| Create a customer                             | POST        | /customers/createCustomer                      |
-| Get a customer by ID                          | GET         | /admin/customers/getCustomerById               |
-| List customers with pagination                | GET         | /admin/customers/listCustomers                 |
-| Update a customer                             | POST        | /admin/customers/updateCustomer                |
-| Delete a customer                             | POST        | /admin/customers/deleteCustomer                |
-| Create a category                             | POST        | /admin/categories/createCategory               |
-| Get a category by slug                        | GET         | /categories/getCategoryBySlug                  |
-| List categories with pagination               | GET         | /categories/listCategories                     |
-| List categories in admin with pagination      | GET         | /admin/categories/listCategories               |
-| Update a category                             | POST        | /admin/categories/updateCategory               |
-| Delete a category                             | POST        | /admin/categories/deleteCategory               |
-| Create a product                              | POST        | /admin/products/createProduct                  |
-| Get a product by ID                           | GET         | /admin/products/getProductById                 |
-| Get a product by slug                         | GET         | /products/getProductBySlug                     |
-| Update a product                              | POST        | /admin/products/updateProduct                  |
-| Delete a product                              | POST        | /admin/products/deleteProduct                  |
-| List products with pagination                 | GET         | /products/listProducts                         |
-| List products in admin with pagination        | GET         | /admin/products/listProducts                   |
-| Get CSV of products                           | GET         | /admin/products/listProducts.csv               |
-| Add an item to the cart                       | POST        | /carts/addItemToCart                           |
-| Get a cart by ID                              | GET         | /carts/getCart                                 |
-| Remove an item from the cart                  | POST        | /carts/removeItemFromCart                      |
-| Clear the cart                                | POST        | /carts/clearCart                               |
-| Create an order                               | POST        | /orders/createOrder                            |
-| List orders with pagination                   | GET         | /orders/listOrders                             |
+## References
 
+- [Disseratação do REST](https://ics.uci.edu/~fielding/pubs/dissertation/fielding_dissertation.pdf)
+- [Roy Fielding Frustado com REST](https://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven)
+- [Richardson Maturity Model](https://www.crummy.com/writing/speaking/2008-QCon/act3.html)
+- [Livro REST in Practice](https://www.amazon.com/REST-Practice-Hypermedia-Systems-Architecture/dp/0596805829)
+- [HTTP 1.1 - RFC 2616](https://datatracker.ietf.org/doc/html/rfc2616)
+- [HTTP PATCH - RFC 5789](https://datatracker.ietf.org/doc/html/rfc5789)
+- [Hypermedia Controls - RFC 5988](https://datatracker.ietf.org/doc/html/rfc5988)
+- [Json+Hal](https://stateless.group/hal_specification.html)
+- [Cache Control](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control)
