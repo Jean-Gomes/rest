@@ -30,7 +30,7 @@ POST http://localhost:3000/session/logout
 ### 👉👉👉 Customer Endpoints 👈👈👈
 
 # @name createCustomer
-POST http://localhost:3000/customers/createCustomer
+POST http://localhost:3000/customers/
 Content-Type: application/json
 
 {
@@ -46,20 +46,19 @@ Content-Type: application/json
 @customer_id = {{ createCustomer.response.body.id }}
 
 ### Get a customer by ID
-GET http://localhost:3000/admin/customers/getCustomerById?id={{ customer_id }}
+GET http://localhost:3000/admin/customers/{{ customer_id }}
 Authorization: Bearer {{ token }}
 
 ### List customers in admin with pagination and optional filtering
-GET http://localhost:3000/admin/customers/listCustomers?page=1&limit=10
+GET http://localhost:3000/admin/customers?page=1&limit=10
 Authorization: Bearer {{ token }}
 
 ### Update a customer
-POST http://localhost:3000/admin/customers/updateCustomer
+POST http://localhost:3000/admin/customers/{{customer_id}}
 Content-Type: application/json
 Authorization: Bearer {{ token }}
 
 {
-  "id": "{{ customer_id }}",
   "email": "john@example.com",
   "password": "newpassword",
   "phone": "0987654321",
@@ -67,7 +66,7 @@ Authorization: Bearer {{ token }}
 }
 
 ### Delete a customer
-POST http://localhost:3000/admin/customers/deleteCustomer
+POST http://localhost:3000/admin/customers/{{customer_id}}/delete
 Content-Type: application/json
 Authorization: Bearer {{ token }}
 
