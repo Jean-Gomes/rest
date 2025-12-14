@@ -124,7 +124,7 @@ Authorization: Bearer {{ token }}
 ### 👉👉👉 Product Endpoints 👈👈👈
 
 # @name createProduct
-POST http://localhost:3000/admin/products/createProduct
+POST http://localhost:3000/admin/products/
 Content-Type: application/json
 Authorization: Bearer {{ token }}
 
@@ -141,14 +141,14 @@ Authorization: Bearer {{ token }}
 @product_slug = {{ createProduct.response.body.slug }}
 
 ### Get a product by ID
-GET http://localhost:3000/admin/products/getProductById?id={{ product_id }}
+GET http://localhost:3000/admin/products/{{ product_id }}
 Authorization: Bearer {{ token }}
 
 ### Get a product by slug
-GET http://localhost:3000/products/getProductBySlug?slug={{ product_slug }}
+GET http://localhost:3000/products/{{ product_slug }}
 
 ### Update a product
-POST http://localhost:3000/admin/products/updateProduct
+POST http://localhost:3000/admin/products/{{product_id}}
 Content-Type: application/json
 Authorization: Bearer {{ token }}
 
@@ -162,7 +162,7 @@ Authorization: Bearer {{ token }}
 }
 
 ### Delete a product
-POST http://localhost:3000/admin/products/deleteProduct
+POST http://localhost:3000/admin/products/{{product_id}}/delete
 Content-Type: application/json
 Authorization: Bearer {{ token }}
 
@@ -171,14 +171,14 @@ Authorization: Bearer {{ token }}
 }
 
 ### List products with pagination and optional filtering&name=Product&categories_slug=category-slug&user_id=1
-GET http://localhost:3000/products/listProducts?page=1&limit=10
+GET http://localhost:3000/products?page=1&limit=10
 
 ### List products in admin with pagination and optional filtering
-GET http://localhost:3000/admin/products/listProducts?page=1&limit=10&name=Product&categories_slug=category-slug&user_id=1
+GET http://localhost:3000/admin/products?page=1&limit=10&name=Product&categories_slug=category-slug&user_id=1
 Authorization: Bearer {{ token }}
 
 ### Get csv of products
-GET http://localhost:3000/admin/products/listProducts.csv
+GET http://localhost:3000/admin/products/products.csv
 Authorization: Bearer {{ token }}
 
 ### 👉👉👉 Cart Endpoints 👈👈👈
