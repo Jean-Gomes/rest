@@ -77,7 +77,7 @@ Authorization: Bearer {{ token }}
 ### 👉👉👉 Category Endpoints 👈👈👈
 
 # @name createCategory
-POST http://localhost:3000/admin/categories/createCategory
+POST http://localhost:3000/admin/categories/
 Content-Type: application/json
 Authorization: Bearer {{ token }}
 
@@ -91,17 +91,17 @@ Authorization: Bearer {{ token }}
 @category_slug = {{ createCategory.response.body.slug }}
 
 ### Get a category by ID
-GET http://localhost:3000/categories/getCategoryBySlug?slug={{ category_slug }}
+GET http://localhost:3000/categories/{{ category_slug }}
 
 ### List categories with pagination and optional filtering
-GET http://localhost:3000/categories/listCategories?page=1&limit=10&name=Category
+GET http://localhost:3000/categories?page=1&limit=10&name=Category
 
 ### List categories in admin with pagination and optional filtering
-GET http://localhost:3000/admin/categories/listCategories?page=1&limit=10&name=Category
+GET http://localhost:3000/admin/categories?page=1&limit=10&name=Category
 Authorization: Bearer {{ token }}
 
 ### Update a category
-POST http://localhost:3000/admin/categories/updateCategory
+POST http://localhost:3000/admin/categories/{{category_id}}
 Content-Type: application/json
 Authorization: Bearer {{ token }}
 
@@ -112,7 +112,7 @@ Authorization: Bearer {{ token }}
 }
 
 ### Delete a category
-POST http://localhost:3000/admin/categories/deleteCategory
+POST http://localhost:3000/admin/categories/{{category_id}}/delete
 Content-Type: application/json
 Authorization: Bearer {{ token }}
 
