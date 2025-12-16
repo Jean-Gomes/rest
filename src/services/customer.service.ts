@@ -41,14 +41,14 @@ export class CustomerService {
   }
 
   async updateCustomer(data: {
-    email: string;
+    customerId: number;
     phone?: string;
     address?: string;
     password?: string;
   }): Promise<Customer | null> {
-    const { email, phone, address, password } = data;
+    const { customerId, phone, address, password } = data;
     const customer = await this.customerRepository.findOne({
-      where: { user: { email } },
+      where: { id: customerId },
       relations: ["user"],
     });
     if (!customer) {
@@ -71,7 +71,7 @@ export class CustomerService {
     return await this.customerRepository.findOneBy({ id: customerId });
   }
 
-  async deleteCustomer(customerId: number): Promise<void> {
+  async  deleteCustomer(customerId: number): Promise<void> {
     await this.customerRepository.delete({ id: customerId });
   }
 
