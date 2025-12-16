@@ -30,7 +30,7 @@ POST http://localhost:3000/session/logout
 ### 👉👉👉 Customer Endpoints 👈👈👈
 
 # @name createCustomer
-POST http://localhost:3000/customers/
+POST http://localhost:3000/customers
 Content-Type: application/json
 
 {
@@ -77,7 +77,7 @@ Authorization: Bearer {{ token }}
 ### 👉👉👉 Category Endpoints 👈👈👈
 
 # @name createCategory
-POST http://localhost:3000/admin/categories/
+POST http://localhost:3000/admin/categories
 Content-Type: application/json
 Authorization: Bearer {{ token }}
 
@@ -124,7 +124,7 @@ Authorization: Bearer {{ token }}
 ### 👉👉👉 Product Endpoints 👈👈👈
 
 # @name createProduct
-POST http://localhost:3000/admin/products/
+POST http://localhost:3000/admin/products
 Content-Type: application/json
 Authorization: Bearer {{ token }}
 
