@@ -105,7 +105,6 @@ Content-Type: application/json
 Authorization: Bearer {{ token }}
 
 {
-  "id": "{{ category_id }}",
   "name": "Updated Category Name",
   "slug": "updated-category-slug"
 }
