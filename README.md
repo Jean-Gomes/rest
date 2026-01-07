@@ -28,6 +28,26 @@ In the api.http file, you can find REST API calls. You should use the REST Clien
 
 ---
 
+In the api.http file, you can find REST API calls. You should use the REST Client extension for more convenience.
+
+---
+
+## List of verbs
+
+| **Verb**   | **Objective**                        | **Idempotente** | **Safe** |
+|-------------|-------------------------------------|----------------|---------|
+| `GET`       | Recover resources                   | Yes            | Yes     |
+| `POST`      | Create resources                    | No             | No      |
+| `PUT`       | Replace resources                   | Yes            | No      |
+| `PATCH`     | Partially update a resource         | Yes            | No      |
+| `DELETE`    | Remove resources                    | Yes            | No      |
+| `HEAD`      | Obtain header                       | Yes            | Yes     |
+| `OPTIONS`   | Verify allowed methods              | Yes            | Yes     |
+| `TRACE`     | Depure call                         | Yes            | No      |
+| `CONNECT`   | Estabilish a tunn                   | No             | No      |
+
+---
+
 ## References
 
 - [Disseratação do REST](https://ics.uci.edu/~fielding/pubs/dissertation/fielding_dissertation.pdf)
