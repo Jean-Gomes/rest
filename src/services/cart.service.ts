@@ -32,6 +32,8 @@ export class CartService {
       where.uuid = id;
     }
 
+    console.log(data)
+
     if (customerId) {
       where.customer = { id: customerId };
     }
