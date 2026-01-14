@@ -27,6 +27,8 @@ Content-Type: application/json
 POST http://localhost:3000/session/logout
 
 
+
+
 ### 👉👉👉 Customer Endpoints 👈👈👈
 
 # @name createCustomer
@@ -73,6 +75,8 @@ Authorization: Bearer {{ token }}
   "id": 1
 }
 
+
+
 ### 👉👉👉 Category Endpoints 👈👈👈
 
 # @name createCategory
@@ -117,6 +121,8 @@ Authorization: Bearer {{ token }}
 {
   "id": "{{ category_id }}"
 }
+
+
 
 
 ### 👉👉👉 Product Endpoints 👈👈👈
@@ -179,6 +185,9 @@ Authorization: Bearer {{ token }}
 GET http://localhost:3000/admin/products/products.csv
 Authorization: Bearer {{ token }}
 
+
+
+
 ### 👉👉👉 Cart Endpoints 👈👈👈
 
 ### Add an item to the cart "customerId": "{{ customer_id }}",
@@ -200,7 +209,7 @@ GET http://localhost:3000/cart
 Cookie: connect.sid=s%3AChsdLB6EoAAXSn-bMQktOpIe_Oub7_kZ.l2CdzslYunIw4Teso4zp4jOLt80BQ5iU4o%2B4zLk8Yjs; Path=/; HttpOnly
 
 ### Remove an item from the cart
-POST http://localhost:3000/cart/items/1/remove
+DELETE http://localhost:3000/cart/items/1
 Content-Type: application/json
 Cookie: connect.sid=s%3AChsdLB6EoAAXSn-bMQktOpIe_Oub7_kZ.l2CdzslYunIw4Teso4zp4jOLt80BQ5iU4o%2B4zLk8Yjs; Path=/; HttpOnly
 
