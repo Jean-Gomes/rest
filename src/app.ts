@@ -1,4 +1,4 @@
-import express from "express";
+import express, { NextFunction, Request, Response } from "express";
 import { createDatabaseConnection } from "./database";
 import customerRoutes from "./routes/customer.routes";
 import categoryRoutes from "./routes/category.routes";
@@ -11,35 +11,13 @@ import adminCategoryRoutes from "./routes/admin/admin-category.routes";
 import loginRoutes from "./routes/session-auth.routes";
 import jwtAuthRoutes from "./routes/jwt-auth.routes";
 import { createCustomerService } from "./services/customer.service";
-//import session from "express-session";
 import jwt from "jsonwebtoken";
+import { Resource } from "./http/resources";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-// comum API terem multiplas formas de auth
+
 app.use(express.json());
-// app.use(
-//   session({
-//     secret: "123",
-//     resave: false,
-//     saveUninitialized: false,
-//     cookie: { secure: false },
-//   })
-// );
-
-// app.use(async (req, res, next) => {
-//   const protectedRoutes = ["/admin", "/orders"];
-//   const isProtectedRoute = protectedRoutes.some((route) =>
-//     req.url.startsWith(route)
-//   );
-
-//   //@ts-expect-error
-//   if (isProtectedRoute && !req.session.userId) {
-//     return res.status(200).send("Unauthorized");
-//   }
-
-//   next();
-// });
 
 app.use(async (req, res, next) => {
   const protectedRoutes = ["/admin", "/orders"];
@@ -68,18 +46,6 @@ app.use(async (req, res, next) => {
   next();
 });
 
-// app.use(async (req, rest, next) => {
-//   const protectedRoutes = ["/admin", "/orders"];
-//   const isProtectedRoute = protectedRoutes.some((route) =>
-//     req.url.startsWith(route)
-//   );
-
-//   if(isProtectedRoute && !req.userId){
-    
-//     return res.status(200).send({message: "Unauthorized"});
-//   }
-// })
-
 app.use("/jwt", jwtAuthRoutes);
 app.use("/session", loginRoutes);
 app.use("/customers", customerRoutes);
@@ -94,6 +60,13 @@ app.use("/admin/categories", adminCategoryRoutes);
 app.get("/", async (req, res) => {
   await createDatabaseConnection();
   res.send("Hello World!");
+});
+
+app.use((result: Resource, req: Request, res: Response, next: NextFunction) => {
+  if (result instanceof Resource) {
+    return res.json(result.toJson());
+  }
+  next(result);
 });
 
 app.listen(PORT, async () => {
