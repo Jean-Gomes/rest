@@ -90,8 +90,8 @@ Authorization: Bearer {{ token }}
 }
 
 ###
-@category_id = {{ createCategory.response.body.id }}
-@category_slug = {{ createCategory.response.body.slug }}
+@category_id = {{ createCategory.response.body.data.id }}
+@category_slug = {{ createCategory.response.body.data.slug }}
 
 ### Get a category by ID
 GET http://localhost:3000/categories/{{ category_slug }}
