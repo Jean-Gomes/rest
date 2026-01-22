@@ -1,20 +1,21 @@
 import { Router } from 'express';
 import { createCustomerService } from '../../services/customer.service';
+import { Resource, ResourceCollection } from '../../http/resources';
 
 const router = Router();
 
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
     const customerService = await createCustomerService();
     const { name, email, password, phone, address } = req.body;
     const customer = await customerService.registerCustomer({name, email, password, phone, address});
-    res.json(customer);
+    const resource = new Resource(customer)
+    next(resource)
 });
 
 router.get('/:customerId', async (req, res) => {
     const customerService = await createCustomerService();
-    const customer = await customerService.getCustomer(parseInt(req.params.customerId));
-    res.send(customer ? customer : {message: 'Customer not found'});
-    //res.json(customer);
+    const customer = await customerService.getCustomer(+req.params.customerId);
+    res.send(customer ? new Resource(customer) : {message: 'Customer not found'});
 });
 
 router.patch('/:customerId', async (req, res) => {
@@ -22,7 +23,8 @@ router.patch('/:customerId', async (req, res) => {
     const { customerId } = req.params;
     const { phone, address, password } = req.body;
     const customer = await customerService.updateCustomer({phone, address, customerId : parseInt(customerId), password});
-    res.json(customer);
+    const resource = new Resource(customer)
+    res.json(resource);
 });
 
 router.delete('/:customerId', async (req, res) => {
@@ -32,14 +34,24 @@ router.delete('/:customerId', async (req, res) => {
     res.send({message: 'Customer deleted successfully'});
 });
 
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
     const customerService = await createCustomerService();
     const { page = 1, limit = 10 } = req.query;
     const { customers, total } = await customerService.listCustomers({
         page: parseInt(page as string),
         limit: parseInt(limit as string)
     });
-    res.json({ customers, total });
+
+  const collection = new ResourceCollection(customers, {
+      paginationData: {
+        total,
+        page: parseInt(page as string),
+        limit: parseInt(limit as string),
+      },
+    });
+  next(collection);
+
+
 });
 
 export default router;

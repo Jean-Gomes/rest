@@ -45,7 +45,7 @@ Content-Type: application/json
 
 ###
 
-@customer_id = {{ createCustomer.response.body.id }}
+@customer_id = {{ createCustomer.response.body.data.id }}
 
 ### Get a customer by ID
 GET http://localhost:3000/admin/customers/{{ customer_id }}
