@@ -197,7 +197,7 @@ POST http://localhost:3000/carts
 
 ###
 
-@cart_uuid = {{ createCart.response.body.uuid }}
+@cart_uuid = {{ createCart.response.body.data.uuid }}
 
 
 ### Add an item to the cart "customerId": "{{ customer_id }}",
@@ -212,7 +212,7 @@ Content-Type: application/json
 
 ###
 
-@cart_id = {{ addItemToCart.response.body.id }}
+@cart_id = {{ addItemToCart.response.body.data.id }}
 
 ### Get a cart by ID
 GET http://localhost:3000/carts/{{cart_uuid}}
