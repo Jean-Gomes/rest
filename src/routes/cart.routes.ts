@@ -58,7 +58,7 @@ router.delete("/:cartUuid/items/:cartItemId", async (req, res) => {
     cartUuid: req.params.cartUuid,
     cartItemId: parseInt(cartItemId),
   });
-  res.send({ message: "Item removed from cart" });
+    res.status(204).send();
 });
 
 router.post("/:cartUuid/clear", async (req, res) => {

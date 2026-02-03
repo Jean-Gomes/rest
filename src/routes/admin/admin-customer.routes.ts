@@ -31,7 +31,7 @@ router.delete('/:customerId', async (req, res) => {
     const customerService = await createCustomerService();
     const { customerId } = req.params;
     await customerService.deleteCustomer(parseInt(customerId));
-    res.send({message: 'Customer deleted successfully'});
+    res.status(204).send();
 });
 
 router.get('/', async (req, res, next) => {

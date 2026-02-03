@@ -31,7 +31,7 @@ router.delete('/:categoryId', async (req, res) => {
     const categoryService = await createCategoryService();
     const { categoryId } = req.params;
     await categoryService.deleteCategory(+categoryId);
-    res.sendStatus(204);
+    res.status(204).send();
 });
 
 router.get('/', async (req, res, next) => {
