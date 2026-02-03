@@ -210,10 +210,6 @@ Content-Type: application/json
   "quantity": 1
 }
 
-###
-
-@cart_id = {{ addItemToCart.response.body.data.id }}
-
 ### Get a cart by ID
 GET http://localhost:3000/carts/{{cart_uuid}}
 
@@ -234,10 +230,10 @@ POST http://localhost:3000/carts/{{cart_uuid}}/clear
 POST http://localhost:3000/orders
 Content-Type: application/json
 Authorization: Bearer {{ token }}
-Cookie: connect.sid=s%3AifNqvlTcIvWVJGGz2M-cMP_6dLtfPr6G.UQFgCITuOMVP%2FffshnV5HLdlpYoFhTFRjcEUM8j%2FsEY; Path=/; HttpOnly
 
 {
-  "payment_method": "CREDIT_CARD"
+  "payment_method": "CREDIT_CARD",
+  "cart_uuid": "{{ cart_uuid }}"
 }
 
 ### List orders with pagination and optional filtering

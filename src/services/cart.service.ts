@@ -58,7 +58,7 @@ export class CartService {
 
     let cart = Object.keys(where).length
       ? await this.cartRepository.findOne({
-          where,
+          where: { uuid: uuid },
           relations: ["items.product"],
         })
       : null;
