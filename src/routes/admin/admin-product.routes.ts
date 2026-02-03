@@ -46,7 +46,7 @@ router.delete("/:productId", async (req, res) => {
   const productService = await createProductService();
   const { id } = req.body;
   await productService.deleteProduct(parseInt(id));
-  res.send({ message: "Product deleted successfully" });
+  res.status(204).send();
 });
 
 router.get("/", async (req, res, next) => {
