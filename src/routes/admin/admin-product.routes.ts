@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { createProductService } from "../../services/product.service";
 import { Resource, ResourceCollection } from "../../http/resources";
+import { title } from "process";
 
 const router = Router();
 
@@ -23,6 +24,15 @@ router.get("/:productId", async (req, res) => {
   const product = await productService.getProductById(
     +req.params.productId
   );
+
+  if(!product){
+    return res.status(404).json({
+      title: 'Not found',
+      status: 404,
+      detail: `Product with id ${req.params.productId} not found`
+    })
+  }
+
   const resource = new Resource(product)
   res.json(resource);
 });
