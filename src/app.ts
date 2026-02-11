@@ -10,9 +10,11 @@ import adminCustomerRoutes from "./routes/admin/admin-customer.routes";
 import adminCategoryRoutes from "./routes/admin/admin-category.routes";
 import loginRoutes from "./routes/session-auth.routes";
 import jwtAuthRoutes from "./routes/jwt-auth.routes";
-import { createCustomerService } from "./services/customer.service";
+import { createCustomerService, UserAlreadyExistsError } from "./services/customer.service";
 import jwt from "jsonwebtoken";
 import { Resource } from "./http/resources";
+import { ValidationError } from "./errors";
+import { constrainedMemory } from "process";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -60,6 +62,42 @@ app.use("/admin/categories", adminCategoryRoutes);
 app.get("/", async (req, res) => {
   await createDatabaseConnection();
   res.send("Hello World!");
+});
+
+app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
+  if(!(error instanceof Error)){
+    return next(error)
+  }
+
+  console.error(error);
+
+   if (error instanceof UserAlreadyExistsError) {
+    return res.status(409).send({
+      title: "Conflict",
+      status: 409,
+      detail: error.message,
+    });
+  }
+
+  if(error instanceof ValidationError){
+     return res.status(400).send({
+      title: "Unprocessable Entity",
+      status: 422,
+      errors: error.error.map(e => ({
+        field: e.property,
+        constraints: e.constraints,
+      })),
+    })
+  };
+
+  if(error instanceof SyntaxError){
+    return res.status(409).send({
+      title: "Bad Request",
+      status: 400,
+      detail: error.message,
+    });
+  };
+
 });
 
 app.use((result: Resource, req: Request, res: Response, next: NextFunction) => {
