@@ -31,9 +31,9 @@ POST http://localhost:3000/session/logout
 
 ### 👉👉👉 Customer Endpoints 👈👈👈
 
-# with urlencoder
+# with xml
 POST http://localhost:3000/customers
-Content-Type: application/json
+Content-Type: application/xml
 
 <xml></xml>
 
