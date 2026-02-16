@@ -90,31 +90,5 @@ router.get("/", async (req, res, next) => {
 
 });
 
-router.get("/listProducts.csv", async (req, res) => {
-  const productService = await createProductService();
-  const {
-    page = 1,
-    limit = 10,
-    name,
-    categories_slug: categoriesSlugStr,
-  } = req.query;
-  const categories_slug = categoriesSlugStr
-    ? categoriesSlugStr.toString().split(",")
-    : [];
-  const { products } = await productService.listProducts({
-    page: parseInt(page as string),
-    limit: parseInt(limit as string),
-    filter: {
-      name: name as string,
-      categories_slug,
-    },
-  });
-  const csv = products
-    .map((product) => {
-      return `${product.name},${product.slug},${product.description},${product.price}`;
-    })
-    .join("\n");
-  res.send(csv);
-});
 
 export default router;
