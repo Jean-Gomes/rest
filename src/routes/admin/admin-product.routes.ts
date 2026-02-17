@@ -99,6 +99,12 @@ router.get("/", async (req, res, next) => {
     res.set("Contet-Type","text/csv")
     return res.send(csv);
   }
+
+  return res.status(406).json({
+    title: 'Not Acceptable',
+    status: 406,
+    detail: "The server can only returns JSON and CSV responses"
+  })
 });
 
 export default router;

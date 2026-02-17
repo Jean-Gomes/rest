@@ -206,6 +206,10 @@ GET http://localhost:3000/admin/products?page=1&limit=10user_id=1
 Authorization: Bearer {{ token }}
 Accept: text/csv
 
+### Get xml of products
+GET http://localhost:3000/admin/products?page=1&limit=10user_id=1
+Authorization: Bearer {{ token }}
+Accept: text/xml
 
 
 
