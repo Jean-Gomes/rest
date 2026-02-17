@@ -14,7 +14,6 @@ import { createCustomerService, UserAlreadyExistsError } from "./services/custom
 import jwt from "jsonwebtoken";
 import { Resource } from "./http/resources";
 import { ValidationError } from "./errors";
-import { constrainedMemory } from "process";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -79,6 +78,10 @@ app.use(async (req, res, next) => {
 
 
 app.use(async (req, res, next) => {
+   if (req.method === "OPTIONS") {
+    return next();
+  }
+
   const protectedRoutes = ["/admin", "/orders"];
   const isProtectedRoute = protectedRoutes.some((route) =>
     req.url.startsWith(route)
