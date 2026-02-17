@@ -163,9 +163,11 @@ Authorization: Bearer {{ token }}
 ### Get a product by ID
 GET http://localhost:3000/admin/products/{{ product_id }}
 Authorization: Bearer {{ token }}
+Accept: application/json
 
 ### Get a product by slug
 GET http://localhost:3000/products/{{ product_slug }}
+
 
 ### Update a product
 PATCH  http://localhost:3000/admin/products/{{product_id}}
@@ -197,8 +199,16 @@ GET http://localhost:3000/products?page=1&limit=10
 #GET http://localhost:3000/admin/products?page=1&limit=10&name=Product&categories_slug=category-slug&user_id=1
 GET http://localhost:3000/admin/products?page=1&limit=10user_id=1
 Authorization: Bearer {{ token }}
+Accept: application/json
 
-#
+### Get csv of products
+GET http://localhost:3000/admin/products?page=1&limit=10user_id=1
+Authorization: Bearer {{ token }}
+Accept: text/csv
+
+
+
+
 ### 👉👉👉 Cart Endpoints 👈👈👈
 
 ### Create a cart

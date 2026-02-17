@@ -79,16 +79,26 @@ router.get("/", async (req, res, next) => {
     },
   });
 
-  const collection = new ResourceCollection(products, {
+  if(!req.headers['accept'] || req.headers['accept'] === 'application/json'){
+    const collection = new ResourceCollection(products, {
       paginationData: {
         total,
         page: parseInt(page as string),
         limit: parseInt(limit as string),
       },
     });
-  next(collection);
+  return next(collection);
+  }
 
+  if(req.headers['accept'] === 'text/csv'){
+    const csv = products
+    .map((product) => {
+      return `${product.name},${product.slug},${product.description},${product.price}`;
+    })
+    .join("\n");
+    res.set("Contet-Type","text/csv")
+    return res.send(csv);
+  }
 });
-
 
 export default router;
