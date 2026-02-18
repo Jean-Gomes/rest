@@ -154,6 +154,7 @@ OPTIONS http://localhost:3000/admin/products
 
 OPTIONS http://localhost:3000/admin/products/1
 
+###
 
 # @name createProduct
 POST http://localhost:3000/admin/products

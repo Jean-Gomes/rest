@@ -30,7 +30,7 @@ router.post("/", corsCollection, async (req, res, next) => {
   next(resource)
 });
 
-router.get("/:productId", async (req, res) => {
+router.get("/:productId",  corsCollection,async (req, res) => {
   const productService = await createProductService();
   const product = await productService.getProductById(
     +req.params.productId
