@@ -1,10 +1,23 @@
 import { Router } from 'express';
 import { createCustomerService } from '../../services/customer.service';
 import { Resource, ResourceCollection } from '../../http/resources';
+import cors from "cors";
+import { defaultCorsOptions } from "../../http/cors";
 
 const router = Router();
 
-router.post('/', async (req, res, next) => {
+
+const corsCollection = cors({
+  ...defaultCorsOptions,
+  methods: ["GET", "POST"],
+});
+
+const corsItem = cors({
+  ...defaultCorsOptions,
+  methods: ["GET", "PATCH", "DELETE"],
+});
+
+router.post('/', corsCollection, async (req, res, next) => {
     const customerService = await createCustomerService();
     const { name, email, password, phone, address } = req.body;
     const customer = await customerService.registerCustomer({name, email, password, phone, address});
@@ -12,13 +25,13 @@ router.post('/', async (req, res, next) => {
     next(resource)
 });
 
-router.get('/:customerId', async (req, res) => {
+router.get('/:customerId', corsCollection, async (req, res) => {
     const customerService = await createCustomerService();
     const customer = await customerService.getCustomer(+req.params.customerId);
     res.send(customer ? new Resource(customer) : {message: 'Customer not found'});
 });
 
-router.patch('/:customerId', async (req, res) => {
+router.patch('/:customerId', corsCollection, async (req, res) => {
     const customerService = await createCustomerService();
     const { customerId } = req.params;
     const { phone, address, password } = req.body;
@@ -27,14 +40,14 @@ router.patch('/:customerId', async (req, res) => {
     res.json(resource);
 });
 
-router.delete('/:customerId', async (req, res) => {
+router.delete('/:customerId', corsCollection, async (req, res) => {
     const customerService = await createCustomerService();
     const { customerId } = req.params;
     await customerService.deleteCustomer(parseInt(customerId));
     res.status(204).send();
 });
 
-router.get('/', async (req, res, next) => {
+router.get('/', corsCollection, async (req, res, next) => {
     const customerService = await createCustomerService();
     const { page = 1, limit = 10 } = req.query;
     const { customers, total } = await customerService.listCustomers({
@@ -51,6 +64,8 @@ router.get('/', async (req, res, next) => {
     });
   next(collection);
 
+router.options("/", corsCollection);
+router.options("/:customerId", corsItem);
 
 });
 

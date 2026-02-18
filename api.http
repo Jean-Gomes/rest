@@ -43,6 +43,7 @@ Content-Type: application/xml
 # with urlencoder
 POST http://localhost:3000/customers
 Content-Type: application/x-www-form-urlencoded
+Origin: http://localhost:3000
 
 name=john_doe&email=johnsdd@example.com&password=securepassword&phone=1234567890&address=123 Main St
 
@@ -51,10 +52,11 @@ name=john_doe&email=johnsdd@example.com&password=securepassword&phone=1234567890
 # @name createCustomer
 POST http://localhost:3000/customers
 Content-Type: application/json
+Origin: http://localhost:3000
 
 {
   "name": "john_doe",
-  "email": "john@example.com",
+  "email": "john@esxadsfample.com",
   "password": "securepassword",
   "phone": "1234567890",
   "address": "123 Main St"
