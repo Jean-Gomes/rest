@@ -3,6 +3,7 @@ import { createProductService } from "../../services/product.service";
 import { Resource, ResourceCollection } from "../../http/resources";
 import cors from "cors";
 import { defaultCorsOptions } from "../../http/cors";
+import { ProductResource, ProductResourceCollection } from "../../http/product-resource";
 
 const router = Router();
 
@@ -26,11 +27,12 @@ router.post("/", corsCollection, async (req, res, next) => {
     price,
     categoryIds
   );
-  const resource = new Resource(product)
-  next(resource)
+  res.set("Location", `/admin/products/${product.id}`).status(201);
+  const resource = new ProductResource(product, req);
+  next(resource);
 });
 
-router.get("/:productId",  corsCollection,async (req, res) => {
+router.get("/:productId", corsItem, async (req, res, next) => {
   const productService = await createProductService();
   const product = await productService.getProductById(
     +req.params.productId
@@ -44,26 +46,11 @@ router.get("/:productId",  corsCollection,async (req, res) => {
     })
   }
 
-  const resource = new Resource(product)
-  res.json(resource);
+  const resource = new ProductResource(product, req);
+  next(resource);
 });
 
-router.get("/:productId", corsItem, async (req, res) => {
-  const productService = await createProductService();
-  const { id, name, slug, description, price, categoryIds } = req.body;
-  const product = await productService.updateProduct({
-    id: +req.params.productId,
-    name,
-    slug,
-    description,
-    price,
-    categoryIds,
-  });
-  const resource = new Resource(product)
-  res.json(resource);
-});
-
-router.patch("/:productId", corsItem, async (req, res) => {
+router.patch("/:productId", corsItem, async (req, res, next) => {
   const productService = await createProductService();
   const { name, slug, description, price, categoryIds } = req.body;
   const product = await productService.updateProduct({
@@ -74,8 +61,8 @@ router.patch("/:productId", corsItem, async (req, res) => {
     price,
     categoryIds,
   });
-  const resource = new Resource(product);
-  res.json(resource);
+  const resource = new ProductResource(product!, req);
+  next(resource);
 });
 
 router.delete("/:productId", corsItem, async (req, res) => {
@@ -110,8 +97,7 @@ if (
     req.headers["accept"] === "*/*" ||
     req.headers["accept"] === "application/json"
   ){
-      const collection = new ResourceCollection(products, {
-      paginationData: {
+      const collection = new ProductResourceCollection(products, req, {      paginationData: {
         total,
         page: parseInt(page as string),
         limit: parseInt(limit as string),

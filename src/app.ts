@@ -12,7 +12,7 @@ import loginRoutes from "./routes/session-auth.routes";
 import jwtAuthRoutes from "./routes/jwt-auth.routes";
 import { createCustomerService, UserAlreadyExistsError } from "./services/customer.service";
 import jwt from "jsonwebtoken";
-import { Resource } from "./http/resources";
+import { IResource, Resource } from "./http/resources";
 import { ValidationError } from "./errors";
 
 const app = express();
@@ -166,8 +166,8 @@ app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
 
 });
 
-app.use((result: Resource, req: Request, res: Response, next: NextFunction) => {
-  if (result instanceof Resource) {
+app.use((result: IResource, req: Request, res: Response, next: NextFunction) => {
+  if ('toJson' in result) {
     return res.json(result.toJson());
   }
   next(result);
