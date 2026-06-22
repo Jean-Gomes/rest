@@ -3,6 +3,7 @@ import { createCategoryService } from '../../services/category.service';
 import { Resource, ResourceCollection } from '../../http/resources';
 import cors from "cors";
 import { defaultCorsOptions } from "../../http/cors";
+import { CategoryResource, CategoryResourceCollection } from '../../http/category-resource';
 
 const router = Router();
 
@@ -20,8 +21,10 @@ router.post('/', corsCollection, async (req, res, next) => {
     const categoryService = await createCategoryService();
     const { name, slug } = req.body;
     const category = await categoryService.createCategory({ name, slug });
-    const resource = new Resource(category)
-    next(resource)
+
+    res.set("Location", `/admin/category/${category.id}`).status(201);
+    const resource = new CategoryResource(category, req);
+    next(resource);
 });
 
 router.get('/:categoryId',  corsCollection,async (req, res) => {
@@ -59,14 +62,13 @@ if (
     req.headers["accept"] === "*/*" ||
     req.headers["accept"] === "application/json"
   ){
-    const collection = new ResourceCollection(categories, {
-        paginationData: {
-                total,
-                page: parseInt(page as string),
-                limit: parseInt(limit as string),
+        const collection = new CategoryResourceCollection(categories, req, {      paginationData: {
+          total,
+          page: parseInt(page as string),
+          limit: parseInt(limit as string),
         },
-    });
-    next(collection);
+      });
+    return next(collection);
     }
 });
 
